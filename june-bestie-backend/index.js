@@ -117,15 +117,14 @@ app.post("/api/genai", async (req, res) => {
             userInfoText = `User info: Name: ${userInfo.name ?? "N/A"}, Age: ${userInfo.age ?? "N/A"}, Gender: ${userInfo.gender ?? "N/A"}, Pronouns: ${userInfo.pronouns ?? "N/A"}, personalInfo: ${userInfo.personalInfo ?? "N/A"}.`;
         }
 
-// Then include it in the prompt
-        const fullPrompt = userInfoText + "\n\n" + prompt;
+        const fullPrompt = userInfoText + "\n\n" + systemPrompt;
 
 
         const result = await ai.models.generateContent({
             model: "gemini-2.5-flash",
             contents: [
-                { role: "model", parts: [{ text: systemPrompt}] },
-                { role: "user", parts: [{ text: fullPrompt }]}
+                { role: "model", parts: [{ text: fullPrompt}] },
+                { role: "user", parts: [{ text: prompt }]}
             ]
         });
 
