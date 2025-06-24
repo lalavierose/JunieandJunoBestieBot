@@ -110,7 +110,7 @@ app.post("/api/genai", async (req, res) => {
         }
 
         const userInfoDoc = await getDoc(doc(db, "userInfo", userId));
-        const userInfo = userInfoDoc.exists() ? userInfoDoc.data() : null;
+        const userInfo = userInfoDoc.exists() ? userInfoDoc.data().userInfo : null;
 
         let userInfoText = "";
         if (userInfo) {
@@ -120,11 +120,12 @@ app.post("/api/genai", async (req, res) => {
 // Then include it in the prompt
         const fullPrompt = userInfoText + "\n\n" + prompt;
 
+
         const result = await ai.models.generateContent({
             model: "gemini-2.5-flash",
             contents: [
-                { role: "model", parts: [{ text: fullPrompt}] },  // Fix here
-                { role: "user", parts: [{ text: prompt }]}
+                { role: "model", parts: [{ text: systemPrompt}] },
+                { role: "user", parts: [{ text: fullPrompt }]}
             ]
         });
 
