@@ -4,27 +4,28 @@ body{
     background-size: cover;              /* Fill screen */
     background-position: center center;
     height: 100vh;
-    width: 100vw;
+    width: 100vw; overflow: hidden; font-family: Roboto, sans-serif;
 }
 
 #allLists {
     display: flex;
-    justify-content: space-around; /* space them out evenly */
+    justify-content: space-around;
     align-items: flex-start;
     flex-wrap: wrap;
     width: 100%;
-    padding: 2rem;
+    padding-left: 7rem;
     box-sizing: border-box;
 }
 
 .list1, .list2, .list3, .list4 {
-    background-color: rgba(255, 255, 255, 0.6); /* optional: make the list pop */
     border-radius: 10px;
-    padding: 1rem;
+    padding: 1rem; padding-top: 0.5rem;
     margin: 1rem;
-    width: 20vw; /* adjust to fit screen */
+    width: 12vw; /* adjust to fit screen */
     min-width: 200px;
     max-width: 300px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
+.lists{
+    background-image: url("backgrounds/listS.png");
+}
