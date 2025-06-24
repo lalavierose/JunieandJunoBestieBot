@@ -123,7 +123,7 @@ app.post("/api/genai", async (req, res) => {
         const result = await ai.models.generateContent({
             model: "gemini-2.5-flash",
             contents: [
-                { role: "model", parts: [{ text: fullPrompt}] },
+                { role: "system", parts: [{ text: fullPrompt}] },
                 { role: "user", parts: [{ text: prompt }]}
             ]
         });
