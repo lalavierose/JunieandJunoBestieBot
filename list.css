@@ -12,8 +12,8 @@ body{
     justify-content: space-around;
     align-items: flex-start;
     flex-wrap: wrap;
-    width: 100%;
-    padding-left: 7rem;
+    width: 50%;
+    padding-left: 9rem;
     box-sizing: border-box;
 }
 

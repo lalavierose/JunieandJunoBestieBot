@@ -14,8 +14,10 @@ import {
     collection,
     getDocs,
     query,
-    where
+    where,
+    updateDoc,
 } from "https://www.gstatic.com/firebasejs/11.9.1/firebase-firestore.js";
+import {serverTimestamp} from "firebase/firestore";
 
 const firebaseConfig = {
     apiKey: "AIzaSyB-qQP6MciVV7dKTeeu-JoBnjOjFki_8wg",
@@ -82,6 +84,23 @@ async function loadLists(){
             });
 
             listEl.appendChild(ul);
+
+            const editBtn = document.createElement("button");
+            editBtn.className = "button";
+            editBtn.textContent = "Edit";
+            editBtn.onclick = () => editList(docSnap.id); // pass Firestore doc ID
+
+            listEl.appendChild(editBtn);
+
+            const clearBtn = document.createElement("button");
+            clearBtn.className = "button";
+            clearBtn.textContent = "Clear List";
+            clearBtn.onclick = () => clearList(docSnap.id); // pass Firestore doc ID
+
+            listEl.appendChild(clearBtn);
+
+
+
         });
 }
 
@@ -104,3 +123,21 @@ onAuthStateChanged(auth, (user) => {
         window.location.href = "index.html";
     }
 });
+
+async function editList(listID){
+
+}
+
+async function clearList(docId){
+    try{
+    await updateDoc(listRef,{
+        tasks: [],
+        updatedAt: serverTimestamp()
+    });
+    loadLists()
+    } catch (e){
+        console.error("❌ Error clearing list:", error);
+    }
+}
+
+window.clearList = clearList;
