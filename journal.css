@@ -1,5 +1,5 @@
 body{
-    background-image: url("backgrounds/journal3.png");
+    background-image: url("backgrounds/journalPage.png");
     background-repeat: no-repeat;
     background-size: cover;              /* Fill screen */
     background-position: center center;
@@ -9,4 +9,15 @@ body{
 
 .journal{
     background-image: url("backgrounds/journalS.png");
+}
+
+.moodJournal{
+    position: absolute;
+    top: 10%;
+    left: 7.5%;
+    border-radius: 10px;
+    padding-left: 2%;
+    padding-right: 2%;
+    width: 45%;
+    background-color: rgba(253, 253, 253,0.5);
 }
