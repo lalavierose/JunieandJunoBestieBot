@@ -7,27 +7,24 @@ body{
     width: 100vw;
 }
 
-.list1{
-    position: absolute;
-    top: 7.5%;
-    left: 17%;
-}
-.list2{
-    position: absolute;
-    top: 7.5%;
-    left: 40%;
-}
-.list3{
-    position: absolute;
-    top: 7.5%;
-    left: 63%;
-}
-.list4{
-    position: absolute;
-    top: 7.5%;
-    left: 85%;
+#allLists {
+    display: flex;
+    justify-content: space-around; /* space them out evenly */
+    align-items: flex-start;
+    flex-wrap: wrap;
+    width: 100%;
+    padding: 2rem;
+    box-sizing: border-box;
 }
 
-.lists{
-    background-image: url("backgrounds/listS.png");
+.list1, .list2, .list3, .list4 {
+    background-color: rgba(255, 255, 255, 0.6); /* optional: make the list pop */
+    border-radius: 10px;
+    padding: 1rem;
+    margin: 1rem;
+    width: 20vw; /* adjust to fit screen */
+    min-width: 200px;
+    max-width: 300px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
+
