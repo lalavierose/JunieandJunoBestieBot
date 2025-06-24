@@ -195,35 +195,55 @@ async function getBotReply(prompt) {
                     })
                 }
 
-                if(list && list.title){
+                if(list && list.title && Array.isArray(list.tasks)){
                     const listQuery = query(
                         collection(db, "lists"),
                         where("ID", "==", userId),
                         where("title", "==", list.title)
                     );
+
                     const listSnap = await getDocs(listQuery);
 
                     if(!listSnap.empty){
                         const listDoc = listSnap.docs[0];
                         const oldTasks = listDoc.data().tasks ?? [];
                         const newTasks = [...new Set([...oldTasks, ...list.tasks])];
-                        await setDoc(doc(db, "list", listDoc.id),{
+                        await setDoc(doc(db, "lists", listDoc.id),{
                             title: list.title,
-                            tasks: list.tasks,
+                            tasks: newTasks,
                             ID: userId,
                             updatedAt: serverTimestamp()
                         })
+                    }else {
+                        await addDoc(collection(db, "lists"), {
+                            title: list.title,
+                            tasks: list.tasks,
+                            ID: userId,
+                            createdAt: serverTimestamp(),
+                            updatedAt: serverTimestamp()
+                        });
                     }
                 }
 
                 //Save or update mood
                 if(mood && mood.date){
                     const moodId = `${userId}-${mood.date}`;
-                    await setDoc(doc(db,"mood",moodId),{
+                    const moodRef = doc(db, "mood", moodId);
+                    const moodSnap = await getDoc(moodRef);
+
+                    let oldSummary = ""
+
+                    if(moodSnap.exists()){
+                        oldSummary = moodSnap.data().daySummary || " ";
+                    }
+
+                    const newSummary = mood?.daySummary || " ";
+
+                    await setDoc(moodRef,{
                         ...mood,
+                        daySummary: oldSummary + newSummary,
                         ID: userId,
                         updatedAt: serverTimestamp()
-
                     });
                 }
 
