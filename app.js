@@ -197,7 +197,7 @@ async function getBotReply(prompt) {
                     })
                 }
 
-                if(list && list.title){
+                if(list && list.title && Array.isArray(list.tasks)){
                     const listQuery = query(
                         collection(db, "lists"),
                         where("ID", "==", userId),
@@ -216,6 +216,14 @@ async function getBotReply(prompt) {
                             ID: userId,
                             updatedAt: serverTimestamp()
                         })
+                    }else {
+                        await addDoc(collection(db, "lists"), {
+                            title: list.title,
+                            tasks: list.tasks,
+                            ID: userId,
+                            createdAt: serverTimestamp(),
+                            updatedAt: serverTimestamp()
+                        });
                     }
                 }
 
