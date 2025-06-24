@@ -157,7 +157,7 @@ async function getBotReply(prompt) {
     const userId = auth.currentUser.uid;
 
     try {
-        const res = await fetch("http://localhost:3000/api/genai", {
+        const res = await fetch("https://junieandjunobestiebot.onrender.com/api/genai", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
