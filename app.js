@@ -185,13 +185,50 @@ async function getBotReply(prompt) {
         try {
             if (jsonData) {
                 console.log("Structured data to save:", jsonData);
-                await addDoc(collection(db, "structuredData"), {
-                    ID: auth.currentUser.uid,
-                    time: serverTimestamp(),
-                    event: jsonData.event || null,
-                    list: jsonData.list || null,
-                    mood: jsonData.mood || null
-                });
+                const {event, list, mood} = jsonData;
+
+                if (event && event.title && event.timestamp ){
+                    await addDoc(collection(db, "events"),{
+                        ID: auth.currentUser.uid,
+                        title: event.title,
+                        timestamp: event.timestamp,
+                        emotion: event.emotion,
+                        createdAt: serverTimestamp()
+                    })
+                }
+
+                if(list && list.title){
+                    const listQuery = query(
+                        collection(db, "lists"),
+                        where("ID", "==", userId),
+                        where("title", "==", list.title)
+                    );
+                    const listSnap = await getDocs(listQuery);
+
+                    if(!listSnap.empty){
+                        const listDoc = listSnap.docs[0];
+                        const oldTasks = listDoc.data().tasks ?? [];
+                        const newTasks = [...new Set([...oldTasks, ...list.tasks])];
+                        await setDoc(doc(db, "list", listDoc.id),{
+                            title: list.title,
+                            tasks: list.tasks,
+                            ID: userId,
+                            updatedAt: serverTimestamp()
+                        })
+                    }
+                }
+
+                //Save or update mood
+                if(mood && mood.date){
+                    const moodId = `${userId}-${mood.date}`;
+                    await setDoc(doc(db,"mood",moodId),{
+                        ...mood,
+                        ID: userId,
+                        updatedAt: serverTimestamp()
+
+                    });
+                }
+
             }
         } catch (e) {
             console.error("Failed to save structured data:", e);
