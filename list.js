@@ -16,8 +16,9 @@ import {
     query,
     where,
     updateDoc,
+    serverTimestamp,
+    doc, deleteDoc, orderBy, limit
 } from "https://www.gstatic.com/firebasejs/11.9.1/firebase-firestore.js";
-import {serverTimestamp} from "firebase/firestore";
 
 const firebaseConfig = {
     apiKey: "AIzaSyB-qQP6MciVV7dKTeeu-JoBnjOjFki_8wg",
@@ -35,7 +36,7 @@ const provider = new GoogleAuthProvider();
 
 async function loadLists(){
         const userId = auth.currentUser.uid
-        const q = query(collection(db, "lists"), where("ID", "==", userId));
+        const q = query(collection(db, "lists"), where("ID", "==", userId), orderBy("updatedAt", "desc"), limit(4));
         const querySnapshot = await getDocs(q);
 
         const container = document.getElementById("allLists");
@@ -63,6 +64,8 @@ async function loadLists(){
                 div4.appendChild(listEl)
             }
 
+            listEl.classList = "listBox"
+
 
             const title = document.createElement("h2");
             title.textContent = list.title;
@@ -85,19 +88,19 @@ async function loadLists(){
 
             listEl.appendChild(ul);
 
-            const editBtn = document.createElement("button");
-            editBtn.className = "button";
-            editBtn.textContent = "Edit";
-            editBtn.onclick = () => editList(docSnap.id); // pass Firestore doc ID
-
-            listEl.appendChild(editBtn);
-
             const clearBtn = document.createElement("button");
             clearBtn.className = "button";
             clearBtn.textContent = "Clear List";
             clearBtn.onclick = () => clearList(docSnap.id); // pass Firestore doc ID
 
             listEl.appendChild(clearBtn);
+
+            const deleteBtn = document.createElement("button");
+            deleteBtn.className = "button";
+            deleteBtn.textContent = "Delete List";
+            deleteBtn.onclick = () => deleteList(docSnap.id); // pass Firestore doc ID
+
+            listEl.appendChild(deleteBtn);
 
 
 
@@ -124,20 +127,41 @@ onAuthStateChanged(auth, (user) => {
     }
 });
 
-async function editList(listID){
+async function clearList(docId) {
+    try {
+        const listRef = doc(db, "lists", docId); // ✅ define it here
 
-}
-
-async function clearList(docId){
-    try{
-    await updateDoc(listRef,{
-        tasks: [],
-        updatedAt: serverTimestamp()
-    });
-    loadLists()
-    } catch (e){
-        console.error("❌ Error clearing list:", error);
+        await updateDoc(listRef, {
+            title: "",
+            tasks: [],
+            updatedAt: serverTimestamp()
+        });
+        clearListContainers();
+        loadLists(); // 🔁 refresh the lists
+    } catch (e) {
+        console.error("❌ Error clearing list:", e); // ✅ correct variable name
     }
 }
 
+function clearListContainers() {
+    ["list1", "list2", "list3", "list4"].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.innerHTML = "";
+    });
+}
+
+async function deleteList(docId, listEl) {
+    try {
+        const listRef = doc(db, "lists", docId); // ✅ define it here
+
+        await deleteDoc(listRef);
+        clearListContainers();
+        loadLists(); // 🔁 refresh the lists
+
+
+    } catch (e) {
+        console.error("❌ Error deleting list:", e); // ✅ correct variable name
+    } }
+
 window.clearList = clearList;
+window.deleteList = deleteList;
