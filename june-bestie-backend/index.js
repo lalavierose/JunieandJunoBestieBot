@@ -101,7 +101,7 @@ app.post("/api/genai", async (req, res) => {
         "\n" +
         "If there is no event, list, or mood info, use null or empty as appropriate.\n" +
         "\n" +
-        `Only include JSON after the delimiter ---JSON---. \n\nThe current date is ${today}. When calculating relative dates like 'tomorrow,' use this date. You must always remember the user’s info between messages. If name, age, or pronouns were provided before, they should be remembered across messages. Use them naturally in your reply unless the user says otherwise.`;
+        `Only include JSON after the delimiter ---JSON---. \n\nThe current date is ${today}. When calculating relative dates like 'tomorrow,' use this date. You must always remember the user’s info between messages. If name, age, or pronouns were provided before, they should be remembered across messages. Use them naturally in your reply unless the user says otherwise. If the user mentions tasks or a to-do list without a title, automatically generate a short, relevant list title based on the content, like "Grocery List", "Errands", or "Today’s Tasks".`;
 
 
 
