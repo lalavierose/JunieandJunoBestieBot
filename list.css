@@ -1,0 +1,33 @@
+body{
+    background-image: url("backgrounds/list3.png");
+    background-repeat: no-repeat;
+    background-size: cover;              /* Fill screen */
+    background-position: center center;
+    height: 100vh;
+    width: 100vw;
+}
+
+#list1{
+    position: absolute;
+    top: 7.5%;
+    left: 17%;
+}
+#list2{
+    position: absolute;
+    top: 7.5%;
+    left: 40%;
+}
+#list3{
+    position: absolute;
+    top: 7.5%;
+    left: 63%;
+}
+#list4{
+    position: absolute;
+    top: 7.5%;
+    left: 85%;
+}
+
+.lists{
+    background-image: url("backgrounds/listS.png");
+}

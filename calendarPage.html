@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Title</title>
+    <link rel="stylesheet" href="home.css" />
+    <link rel="stylesheet" href="calendar.css" />
+
+    <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.17/index.global.min.js'></script>
+
+</head>
+<body>
+<a href="home.html"> <div class="junie"> </div></a>
+<a href="juno.html"> <div class="juno"> </div></a>
+<a href="listPage.html"> <div class="lists"> </div></a>
+<a href="calendarPage.html"> <div class="calendar"> </div></a>
+<a href="journalPage.html"> <div class="journal"> </div></a>
+
+<button class="button" id="signOut" onclick="authSignOut()">Sign Out</button>
+<h3 id="errorMsg2"></h3>
+
+<div id="calendar"></div>
+<div id="dayView"></div>
+
+<h2 id="displayerName"></h2>
+
+
+</div>
+
+
+<script type="module" src="calendar.js"></script>
+</body>
+</html>

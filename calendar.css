@@ -1,0 +1,86 @@
+body{
+    background-image: url("backgrounds/calendar3.png");
+    background-repeat: no-repeat;
+    background-size: cover;              /* Fill screen */
+    background-position: center center;
+    height: 100vh;
+    width: 100vw;
+    overflow: hidden;
+}
+
+#calendar{
+    position: absolute;
+    left: 10.58%; /* 150px */
+    top: 8.69%;  /* 36px */
+    width: 60.96%; /* 970px */
+    height: 82.64%; /* 650px */
+    border-radius: 25px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 10px;
+    font-family: Roboto, sans-serif;
+}
+
+#dayView{
+    position: absolute;
+    left: 75.58%; /* 150px */
+    top: 8.69%;  /* 36px */
+    width: 19.96%; /* 970px */
+    height: 82.64%; /* 650px */
+    border-radius: 25px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 10px;
+    overflow: hidden;
+    font-family: Roboto, sans-serif;
+
+}
+
+.fc-today-button {
+    background-color: #c787a2!important;
+    border-radius: 20px;
+}
+
+.fc-next-button, .fc-prev-button {
+    background-color: #c86d99 !important;
+}
+
+.fc-day-today {
+    background-color: rgb(244, 183, 214, 0.5) !important;
+}
+
+.fc-button {
+    background-color: pink; /* button background */
+    color: white;           /* button text */
+    border-radius: 8px;     /* optional: round corners */
+}
+
+/* On hover */
+.fc-button:hover {
+    background-color: hotpink;
+    color: white;
+}
+
+.fc-toolbar-title{
+    color: #c787a2;
+    stroke: #c86d99;
+    stroke-width: 2px;
+}
+
+.fc-toolbar.fc-header-toolbar .fc-button {
+    background-color: #eb90bd !important;
+    border-radius: 8px !important;
+    font-size: medium;
+}
+
+.fc-toolbar.fc-header-toolbar .fc-button:hover {
+    background-color: #c86d99 !important;
+    border-radius: 8px !important;
+    font-size: medium;
+}
+
+.calendar{
+    background-image: url("backgrounds/calendarS.png");
+}
