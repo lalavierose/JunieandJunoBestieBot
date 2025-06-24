@@ -82,7 +82,6 @@ async function loadLists(){
             });
 
             listEl.appendChild(ul);
-            container.appendChild(listEl);
         });
 }
 
