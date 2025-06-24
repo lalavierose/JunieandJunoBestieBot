@@ -101,7 +101,7 @@ app.post("/api/genai", async (req, res) => {
         "\n" +
         "If there is no event, list, or mood info, use null or empty as appropriate.\n" +
         "\n" +
-        `Only include JSON after the delimiter ---JSON---. \n\nThe current date is ${today}. When calculating relative dates like 'tomorrow,' use this date.`;
+        `Only include JSON after the delimiter ---JSON---. \n\nThe current date is ${today}. When calculating relative dates like 'tomorrow,' use this date. You must always remember the user’s info between messages. If name, age, or pronouns were provided before, they should be remembered across messages. Use them naturally in your reply unless the user says otherwise.`;
 
 
 
@@ -117,14 +117,14 @@ app.post("/api/genai", async (req, res) => {
             userInfoText = `User info: Name: ${userInfo.name ?? "N/A"}, Age: ${userInfo.age ?? "N/A"}, Gender: ${userInfo.gender ?? "N/A"}, Pronouns: ${userInfo.pronouns ?? "N/A"}, personalInfo: ${userInfo.personalInfo ?? "N/A"}.`;
         }
 
-        const fullPrompt = userInfoText + "\n\n" + systemPrompt;
+        const fullPrompt = userInfoText + "\n\n" + prompt;
 
 
         const result = await ai.models.generateContent({
             model: "gemini-2.5-flash",
             contents: [
-                { role: "system", parts: [{ text: fullPrompt}] },
-                { role: "user", parts: [{ text: prompt }]}
+                { role: "system", parts: [{ text: systemPrompt}] },
+                { role: "user", parts: [{ text: fullPrompt }]}
             ]
         });
 
