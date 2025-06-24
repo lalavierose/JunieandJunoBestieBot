@@ -7,22 +7,22 @@ body{
     width: 100vw;
 }
 
-#list1{
+.list1{
     position: absolute;
     top: 7.5%;
     left: 17%;
 }
-#list2{
+.list2{
     position: absolute;
     top: 7.5%;
     left: 40%;
 }
-#list3{
+.list3{
     position: absolute;
     top: 7.5%;
     left: 63%;
 }
-#list4{
+.list4{
     position: absolute;
     top: 7.5%;
     left: 85%;
