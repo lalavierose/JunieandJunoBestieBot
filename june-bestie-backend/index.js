@@ -110,7 +110,7 @@ app.post("/api/genai", async (req, res) => {
         }
 
         const userInfoDoc = await getDoc(doc(db, "userInfo", userId));
-        const userInfo = userInfoDoc.exists() ? userInfoDoc.data().userInfo : null;
+        const userInfo = userInfoDoc.exists() ? userInfoDoc.data() : null;
 
         let userInfoText = "";
         if (userInfo) {
