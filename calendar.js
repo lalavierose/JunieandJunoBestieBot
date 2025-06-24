@@ -34,7 +34,7 @@ const provider = new GoogleAuthProvider();
 // Load events from Firestore
 async function loadFirestoreEvents(userId, monthCal, dayCal) {
     const q = query(
-        collection(db, "structuredData"),
+        collection(db, "events"),
         where("ID", "==", userId)
     );
 
@@ -44,12 +44,12 @@ async function loadFirestoreEvents(userId, monthCal, dayCal) {
 
         snapshot.forEach((doc) => {
             const data = doc.data();
-            if (data.event && data.event.title && data.event.timestamp) {
+            if (data.title && data.timestamp) {
                 events.push({
-                    title: data.event.title,
-                    start: data.event.timestamp,
+                    title: data.title,
+                    start: data.timestamp,
                     extendedProps: {
-                        emotion: data.event.emotion || "none"
+                        emotion: data.emotion || "none"
                     }
                 });
             }
