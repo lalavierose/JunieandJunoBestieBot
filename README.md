@@ -1,3 +1,6 @@
+![image](https://github.com/user-attachments/assets/187f65da-a865-4b6e-88d9-37044fc1b6c6)
+
+
 ✨ Meet Junie & Juno: ✨
 
 Two twins. Total opposites. One hyper and full of life, the other cool, calm, and calculated. Together? A perfect balance, and your new digital besties.
@@ -48,6 +51,15 @@ Frontend: Netlify
 
 Backend: Render
 
+SCREENSHOTS:
+![image](https://github.com/user-attachments/assets/810b2f1a-b1a4-4931-b51a-5770a6e84850)
 
+![image](https://github.com/user-attachments/assets/29145c7e-2879-4774-a8fc-d596d9e0029c)
+
+![image](https://github.com/user-attachments/assets/f3c192f2-e6c5-4675-8263-7b8ab5480a75)
+
+
+
+⊹₊ ˚‧︵‿₊୨୧₊‿︵‧ ˚ ₊⊹
 
 I really hope you guys enjoy this project. It took too many long nights and a LOT of debugging. I'm really proud of it and I hope you find it as fun as I did. 💗
