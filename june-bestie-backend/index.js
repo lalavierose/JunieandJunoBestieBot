@@ -124,6 +124,7 @@ app.post("/api/genai", async (req, res) => {
             model: "gemini-2.5-flash",
             systemInstruction: systemPrompt,
             contents: [
+                { role: "model", parts: [{ text: systemPrompt}]},
                 { role: "user", parts: [{ text: fullPrompt }] }
             ]
         });
