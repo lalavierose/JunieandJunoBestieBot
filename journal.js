@@ -107,6 +107,7 @@ onAuthStateChanged(auth, (user) => {
     }
 });
 
+
 async function moodData(){
     const q = query(
         collection(db, "mood"),
@@ -128,8 +129,26 @@ async function moodData(){
 
 }
 
+
+
 function drawMoodGraph(data){
     const ctx = document.getElementById('moodChart');
+
+    const colours = data.map(entry => {
+        switch(entry.moodScore) {
+            case 1: return '#fde3e7';
+            case 2: return '#f6c8d5';
+            case 3: return '#f0a1b7';
+            case 4: return '#e77595';
+            case 5: return '#e1507a';
+            case 6: return '#cb3966';
+            case 7: return '#b22557';
+            case 8: return '#921944';
+            case 9: return '#6d0d2d';
+            case 10: return '#390617';
+            default: return '#cccccc'; // grey fallback
+        }
+    });
 
     new Chart(ctx, {
         type: 'doughnut',
@@ -138,7 +157,7 @@ function drawMoodGraph(data){
             datasets: [{
                 label: 'Emotional Stress',
                 data: data.map(d => d.moodScore),
-                backgroundColor: '#ff6fa1',
+                backgroundColor: colours,
                 borderWidth: 1
             }]
         },
@@ -147,6 +166,13 @@ function drawMoodGraph(data){
             plugins: {
                 legend: {
                     position: 'bottom'
+                },
+                title: {
+                    display: true,
+                    text: 'Emotional Mood Overview',
+                    font:{
+                        size: 18
+                    }
                 }
             }
         }
@@ -174,8 +200,26 @@ async function physicalData(){
 
 }
 
+
+
 function drawPhysicalGraph(data){
     const ctx = document.getElementById('physicalChart');
+
+    const colours2 = data.map(entry => {
+        switch(entry.physicalScore) {
+            case 1: return '#fde3e7';
+            case 2: return '#f6c8d5';
+            case 3: return '#f0a1b7';
+            case 4: return '#e77595';
+            case 5: return '#e1507a';
+            case 6: return '#cb3966';
+            case 7: return '#b22557';
+            case 8: return '#921944';
+            case 9: return '#6d0d2d';
+            case 10: return '#390617';
+            default: return '#cccccc'; // grey fallback
+        }
+    });
 
     new Chart(ctx, {
         type: 'doughnut',
@@ -184,7 +228,7 @@ function drawPhysicalGraph(data){
             datasets: [{
                 label: 'Physical Stress',
                 data: data.map(d => d.physicalScore),
-                backgroundColor: '#8ac926',
+                backgroundColor: colours2,
                 borderWidth: 1
             }]
         },
@@ -193,7 +237,15 @@ function drawPhysicalGraph(data){
             plugins: {
                 legend: {
                     position: 'bottom'
+                },
+                title: {
+                    display: true,
+                    text: 'Physical Mood Overview',
+                    font: {
+                        size: 18
+                    }
                 }
+
             }
         }
     });
