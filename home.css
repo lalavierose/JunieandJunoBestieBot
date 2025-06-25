@@ -32,7 +32,7 @@ body{
 .messageBubble {
     max-width: 50%;
     padding: 8px 12px;
-    border-radius: 30px;
+    border-radius: 20px;
     word-wrap: break-word;
     white-space: pre-wrap;
     display: inline-block;
@@ -189,4 +189,62 @@ body{
     padding: 10px;
     box-shadow: 0px 6px 0px #c86d99;
     transition: all 0.1s;
+}
+
+.bot-bubble {
+    background-color: #fafafa;
+    color: black;
+    padding: 10px 15px;
+    border-radius: 15px;
+    max-width: 4%;
+    margin: 10px;
+    position: relative;
+    font-family: sans-serif;
+    font-size: 16px;
+}
+
+.bot-bubble::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 10px;
+    width: 0;
+    height: 0;
+    border: 10px solid transparent;
+    border-top-color: #f0f0f0;
+    border-bottom: 0;
+    margin-left: -5px;
+    margin-bottom: -10px;
+}
+
+.thinking {
+    display: flex;
+    gap: 5px;
+    align-items: center;
+}
+
+.dot {
+    width: 8px;
+    height: 8px;
+    background-color: #ecbbd4;
+    border-radius: 50%;
+    animation: blink 1.2s infinite;
+}
+
+.dot:nth-child(2) {
+    animation-delay: 0.2s;
+}
+.dot:nth-child(3) {
+    animation-delay: 0.4s;
+}
+
+@keyframes blink {
+    0%, 80%, 100% {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    40% {
+        opacity: 1;
+        transform: scale(1.1);
+    }
 }

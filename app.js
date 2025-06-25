@@ -131,6 +131,7 @@ async function outGoingMessageHuman() {
         console.error("Error adding document: ", e);
     }
 
+
     getBotReply(message);
 
     addToHistory("user", message);
@@ -153,6 +154,30 @@ function outGoingMessagesBot(response) {
 }
 
 async function getBotReply(prompt) {
+
+    const container = document.getElementById("chatArea");
+
+    const thinkingBubble = document.createElement("div");
+    thinkingBubble.className = "bot-bubble thinking";
+    thinkingBubble.innerHTML = `
+  <span class="dot"></span>
+  <span class="dot"></span>
+  <span class="dot"></span>
+`;
+
+    container.appendChild(thinkingBubble);
+
+// Then, after 2 seconds (or when your bot finishes thinking), remove it:
+    setTimeout(() => {
+        thinkingBubble.remove();
+    }, 3000);
+
+    const chatArea = document.getElementById("chatArea");
+    chatArea.scrollTop = chatArea.scrollHeight;
+
+
+
+
     const twin = "junie";
     const userId = auth.currentUser.uid;
 
@@ -355,4 +380,5 @@ function addToHistory(role, message) {
     if (shortTermHistory.length > 30) {
     }
 }
+
 

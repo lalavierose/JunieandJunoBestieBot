@@ -100,6 +100,7 @@ onAuthStateChanged(auth, (user) => {
         console.log("✅ Logged in as:", user.email);
         loadJournal()
         moodData()
+        physicalData()
     } else {
         console.log("❌ No user logged in");
         window.location.href = "index.html";
@@ -127,26 +128,71 @@ async function moodData(){
 
 }
 
-function drawMoodGraph(){
-    const ctx = document.getElementById('myChart');
+function drawMoodGraph(data){
+    const ctx = document.getElementById('moodChart');
 
     new Chart(ctx, {
-        type: 'line',
+        type: 'doughnut',
         data: {
-            labels: data.map(d=>d.date),
+            labels: data.map(d => d.date),
             datasets: [{
-                label: 'Mood Over Time',
-                data: data.map(d=> d.moodScore),
-                borderColor: '#ff6fa1',
-                fill: false,
-                tension: 0.3,
+                label: 'Emotional Stress',
+                data: data.map(d => d.moodScore),
+                backgroundColor: '#ff6fa1',
+                borderWidth: 1
             }]
         },
         options: {
-            scales: {
-                y: {
-                    suggestedMin: 1,
-                    suggestedMax: 10
+            responsive: true,
+            plugins: {
+                legend: {
+                    position: 'bottom'
+                }
+            }
+        }
+    });
+}
+
+async function physicalData(){
+    const q = query(
+        collection(db, "mood"),
+        where("ID", "==", auth.currentUser.uid),
+        orderBy("date", "asc"),
+        limit(30)
+    );
+
+    const snapshot = await getDocs(q);
+
+    const data = [];
+
+    snapshot.forEach((doc) =>{
+        const entry = doc.data();
+        data.push({date: entry.date, physicalScore: entry.physicalIntensity});
+    });
+
+    drawPhysicalGraph(data);
+
+}
+
+function drawPhysicalGraph(data){
+    const ctx = document.getElementById('physicalChart');
+
+    new Chart(ctx, {
+        type: 'doughnut',
+        data: {
+            labels: data.map(d => d.date),
+            datasets: [{
+                label: 'Physical Stress',
+                data: data.map(d => d.physicalScore),
+                backgroundColor: '#8ac926',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    position: 'bottom'
                 }
             }
         }
