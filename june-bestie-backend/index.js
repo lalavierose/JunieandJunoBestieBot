@@ -122,11 +122,12 @@ app.post("/api/genai", async (req, res) => {
 
         const result = await ai.models.generateContent({
             model: "gemini-2.5-flash",
+            systemInstruction: systemPrompt,
             contents: [
-                { role: "system", parts: [{ text: systemPrompt}] },
-                { role: "user", parts: [{ text: fullPrompt }]}
+                { role: "user", parts: [{ text: fullPrompt }] }
             ]
         });
+
 
         console.log("Full raw AI response object:", JSON.stringify(result, null, 2));
         console.log("Extracted text content:", JSON.stringify(result?.candidates?.[0]?.content?.parts?.[0]?.text));
